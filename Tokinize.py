@@ -41,7 +41,7 @@ def t_error(t):
 # Build the lexer
 lexer = lex.lex()
 
-# Test it out
+# Test data
 data = '''
 #x.(x y)
 '''
