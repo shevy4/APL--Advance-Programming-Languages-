@@ -41,22 +41,19 @@ def t_error(t):
 # Build the lexer
 lexer = lex.lex()
 
-# Test data
-data = '''
-#x.(x y)
-'''
-lexer.input(data)
-
 # Main
-while True:
-    tokens = []
 
+token_list = []
+
+
+def tokenize(data):
+    lexer.input(data)
     # Tokenize
-    tok = lexer.token()
-    # Exit when tokenized
-    if not tok:
-        break
-    # Add to token list
-    tokens.append(f"{tok.value} {tok.type}")
-
-    print(tokens)
+    while True:
+        tok = lexer.token()
+        # Exit when tokenized
+        if not tok:
+            break
+        # Add to token list
+        token_list.append(f"{tok.value} {tok.type}")
+    return token_list
