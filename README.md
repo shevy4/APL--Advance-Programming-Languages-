@@ -21,7 +21,8 @@ and you may also use compiler development tools such as LEX/YACC (generates C co
 ## Screenshot :
 
 ![md](https://github.com/shevy4/APL--Advance-Programming-Languages-/assets/61606455/d068f821-9328-445e-9eea-7415ceadaa01)
-![syntax](https://github.com/shevy4/APL--Advance-Programming-Languages-/assets/61606455/40833c62-807d-481b-9d3f-31ad8ae88a85)
+![syntax](https://github.com/shevy4/APL--Advance-Programming-Languages-/assets/61606455/0b121f1f-f809-4f13-b6c7-2a77b6cbe712)
+
 
 
 
