@@ -18,8 +18,6 @@ and you may also use compiler development tools such as LEX/YACC (generates C co
 ![](https://img.shields.io/badge/Version_Release-1.2-brightgreen)
 
 
-
-H1 Header (Underline)
 =============
 ## Screenshot :
 
