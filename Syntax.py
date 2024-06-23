@@ -7,33 +7,35 @@ variables = []
 # Define grammar rules
 
 def p_expression_lambda(p):
-    """expression : LAMBDA VARIABLE DOT LPAREN expression RPAREN
-                  | LAMBDA VARIABLE DOT expression
-                  | expression expression
-                  | VARIABLE
-
-                  """
-    if len(p) == 2:
-        print(p[1][0])
-        p[0] = ('variable', p[1])
+    """expression : LAMBDA VARIABLE DOT expression"""
+    p[0] = ('lambda', p[2], p[4])
 
 
+def p_expression_application(p):
+    """expression : expression expression"""
+    p[0] = ('apply', p[1], p[2])
 
 
-    elif len(p) == 5 and p[1] == '#':
-        print("PING 5")
-        for _ in range(len(p)):
-            print(p[_])
-        p[0] = ('lambda', p[2], (p[4]))
-        print(p[0])
-        print(variables)
+def p_expression_variable(p):
+    """expression : VARIABLE"""
 
-    elif len(p) == 7:
-        print("PING")
-        p[0] = ('lambda', p[2], ('variable', p[4]))
+    p[0] = ('var', p[1])
 
-    elif len(p) == 4:
-        p[0] = p[2]
+
+def p_expression_constant(p):
+    """expression : CONSTANT"""
+    p[0] = ('const', int(p[1]))
+
+
+def p_expression_operator(p):
+    """expression : expression OPERATOR expression"""
+
+    p[0] = ('operator', p[2], p[1], p[3])
+
+
+def p_expression_parenthesized(p):
+    """expression : LPAREN expression RPAREN"""
+    p[0] = p[2]
 
 
 def p_error(p):

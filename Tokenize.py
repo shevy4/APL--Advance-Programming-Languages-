@@ -7,6 +7,8 @@ tokens = (
     'LPAREN',  # Left parenthesis '('
     'RPAREN',  # Right parenthesis ')'
     'VARIABLE',  # Variables
+    'CONSTANT',  # Constants
+    'OPERATOR',  # Operator
 )
 
 # Regular expression rules for simple tokens
@@ -14,6 +16,8 @@ t_LAMBDA = r'\#'
 t_DOT = r'\.'
 t_LPAREN = r'\('
 t_RPAREN = r'\)'
+t_CONSTANT = r'[0-9]+'
+t_OPERATOR = r'[\+\-\*\\]'
 
 
 # A regular expression rule with some action code to handle variables
@@ -41,13 +45,12 @@ def t_error(t):
 # Build the lexer
 lexer = lex.lex()
 
+
 # Main
-
-token_list = []
-
 
 def tokenize(data):
     lexer.input(data)
+    token_list = []
     # Tokenize
     while True:
         tok = lexer.token()

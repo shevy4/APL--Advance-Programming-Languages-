@@ -5,7 +5,7 @@ from GUI import Run_GUI
 # Old Test data
 ''''
 data = '''
-#x.(x)
+#x.#y.x y + y
 '''
 '''
 
@@ -16,15 +16,12 @@ print("Code = ", data.strip())
 
 # Tokenize the input data
 tokens = tokenize(data)
+print("Tokens:", tokens)
 
 parsed_result = parse(data)
-<<<<<<< Updated upstream
-print("Parsed result:", parsed_result)
-=======
 print("Parsed result:", parsed_result)
 
 '''
 #x.#y.x y + y
 
 '''
->>>>>>> Stashed changes
