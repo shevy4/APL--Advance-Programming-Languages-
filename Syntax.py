@@ -1,8 +1,6 @@
 from ply import yacc
 from Tokenize import tokens
 
-variables = []
-
 
 # Define grammar rules
 
