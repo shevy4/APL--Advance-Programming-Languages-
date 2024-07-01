@@ -8,6 +8,7 @@ variables = []
 
 def p_expression_lambda(p):
     """expression : LAMBDA VARIABLE DOT expression"""
+
     p[0] = ('lambda', p[2], p[4])
 
 
@@ -31,11 +32,6 @@ def p_expression_operator(p):
     """expression : expression OPERATOR expression"""
 
     p[0] = ('operator', p[2], p[1], p[3])
-
-
-def p_expression_parenthesized(p):
-    """expression : LPAREN expression RPAREN"""
-    p[0] = p[2]
 
 
 def p_error(p):
