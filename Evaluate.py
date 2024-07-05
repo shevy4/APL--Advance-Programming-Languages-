@@ -1,86 +1,128 @@
-def parse_result(parsed_result):
-    def beta_reduce(expr):
-
-        if isinstance(expr, tuple):
-
-            if expr[0] == 'lambda':
-                print("input was = ", expr)
-                input, body = expr[1], expr[2]
-
-                #print("input =\n", input, "\nbody -\n", body[1])
-                if input == body[1]:
-                    return body
-                else:
-                    if len(body) == 2:
-                        return body
-                    else:
-                        if expr[2][2][0] == 'lambda':
-                            body = expr[2][2]
-                            if input == expr[2][1][1]:
-                                return body
-                            else:
-                                body = expr[2]
-                                return body
-                        else:
-                            return expr[2]
-
-            if expr[0] == 'var':
-                print(expr)
-                return expr
-
-            if expr[0] == 'apply':
-                func, arg = expr[1], expr[2]
-                print("func = ", func, "arg = ", arg)
-                if func[0] == 'lambda':
-                    var, body = arg[1], func[2]
-                    reduced_expr = substitute(body, var, arg)
-                    print('reduced - \n', reduced_expr)
-                    print(f"Reducing: ({func}) ({arg}) -> {reduced_expr}")
-                    return reduced_expr
-                else:
-                    if func[0] == 'var':
-                        arg, func = beta_reduce(expr[2]), expr[1]
-                        print("func = ", func, "arg = ", arg)
-                        if arg[0] == 'var':
-                            if func[0] == 'var':
-                                return arg
-                            return func
-                        else:
-                            print("returning arg")
-                            print(arg)
-                            return arg
-
-                    else:
-                        return ('apply', beta_reduce(func), beta_reduce(arg))
+reduced = []
+steps = []
+result = None
 
 
+def evaluate(expression):
+    global result
+    global reduced
+    for _ in range(len(expression)):
+        if expression[_] == 'lambda':
+            input = expression[_ + 1]
+        if isinstance(expression[_], tuple):
+            body = expression[_]
+            if body[0] == 'lambda':
+                reduced = sub(input, body)
+                #print(expression, " -> ", reduced)
+                steps.append(str(expression) + " -> " + str(reduced))
+                evaluate(reduced)
 
-            elif expr[0] == 'operator':
-                return expr
-
-    def substitute(body, var, value):
-        print("Sub")
-        if isinstance(body, tuple):
-            if body[0] == 'var' and body[1] == var:
-                return value
-            elif body[0] == 'lambda':
-                if body[1] == var:
-                    return body
-                else:
-                    return ('lambda', body[1], substitute(body[2], var, value))
             else:
-                return tuple(substitute(sub_expr, var, value) for sub_expr in body)
-        else:
-            return body
+                #print(body[0], " != ", 'lambda (Single)')
+                const = False
+                for __ in range(1, len(body)):
+                    if body[__][0] == 'const':
+                        const = True
+                        break
+                if not const:
+                    try:
+                        #print(body[1][1] + body[2][1])
+                        result = body[1][1] + body[2][1]
+                    except IndexError:
+                        #print("Single Abstraction")
+                        #print(body[1])
+                        result = body[1]
+                else:
+                    #print('Constant Found')
+                    new_expression = sub(input, body)
+                    #print(expression, ' -> ', new_expression)
+                    steps.append(str(expression) + " -> " + str(new_expression))
+                    evaluate(new_expression)
+        elif expression[_] == 'const':
+            try:
+                #print(expression[1], expression[3])
+                result = str(expression[1]) + ' ' + str(expression[3])
+                break
+            except IndexError:
+                #print(expression[1])
+                result = expression[1]
+                break
+    return result, steps
 
-    current_expr = parsed_result
-    count = 0
-    while True:
-        reduced_expr = beta_reduce(current_expr)
-        if reduced_expr == current_expr:
-            break
-        print(f"Reduction step {count}: {current_expr} -> {reduced_expr}")
-        current_expr = reduced_expr
-        count += 1
 
-    print("Final result:", current_expr)
+def sub(input, body):
+    new_body = convert_to_nested_list(body)
+    for _ in range(1, len(new_body[2])):
+        try:
+            if new_body[2][_][0] == 'var':
+                if new_body[2][_][1] == input:
+                    for __ in range(len(new_body[2])):
+                        if new_body[2][__][0] == 'const':
+                            new_body[2][_] = ['const', new_body[2][__][1]]
+                            new_body[2][__] = ' '
+                            new_body = clean_list(new_body)
+                            return convert_to_nested_tuple(new_body)
+                    for __ in range(len(new_body[2])):
+                        if new_body[2][__][0] == 'var':
+                            if new_body[2][__ + 1][0] == 'var':
+                                return new_body[2][__][1] + new_body[2][__ + 1][1]
+                            return new_body[2][__][1]
+            else:
+                if new_body[2][0] == 'lambda':
+                    return convert_to_nested_tuple(new_body)
+                #print("Not Nested")
+                const = False
+                for __ in range(len(new_body)):
+                    if new_body[__][0] == 'const':
+                        const = True
+                if not const:
+                    #print("No Constant")
+                    if new_body[2][0] == 'var':
+                        return new_body[2][1]
+                else:
+                    #print("Const Found")
+                    for __ in range(len(new_body)):
+                        if new_body[__][0] == 'var':
+                            if new_body[__][1] == input:
+                                for count in range(len(new_body)):
+                                    if new_body[count][0] == 'const':
+                                        new_body[__] = ['const', new_body[count][1]]
+                                        new_body[count] = " "
+                                        break
+                    new_body = clean_list(new_body)
+                    new_body = convert_to_nested_tuple(new_body)
+                    try:
+                        return new_body[1] + new_body[2]
+                    except IndexError:
+                        return new_body[1]
+
+        except TypeError:
+            for __ in range(len(new_body)):
+                if new_body[__][0] == 'var':
+                    if new_body[__][1] == input:
+                        return new_body[__ + 1][1]
+
+
+def convert_to_nested_list(data):
+    if isinstance(data, tuple):
+        return [convert_to_nested_list(item) for item in data]
+    elif isinstance(data, list):
+        return [convert_to_nested_list(item) for item in data]
+    else:
+        return data
+
+
+def clean_list(nested_list):
+    if isinstance(nested_list, list):
+        return [clean_list(item) for item in nested_list if item != " "]
+    else:
+        return nested_list
+
+
+def convert_to_nested_tuple(data):
+    if isinstance(data, list):
+        return tuple(convert_to_nested_tuple(item) for item in data)
+    elif isinstance(data, tuple):
+        return tuple(convert_to_nested_tuple(item) for item in data)
+    else:
+        return data

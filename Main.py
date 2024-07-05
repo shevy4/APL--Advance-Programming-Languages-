@@ -1,21 +1,58 @@
+import sys
+import time
+from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
+from PyQt5 import uic
 from Tokenize import tokenize
 from Syntax import parse
-from Evaluate import parse_result
-from GUI import Run_GUI
-
-# Old Test data
-#data = #x.#y.x y + y
+from Evaluate import evaluate
+from AI_Analysis import Analyze
 
 
-data = Run_GUI()
-data = data.replace('(', '').replace(')','')
+class GUI(QMainWindow):
 
-print("Code = ", data.strip())
+    def __init__(self):
+        super(GUI, self).__init__()
+        uic.loadUi('Final_Gui.ui', self)
+        self.show()
+        self.data = None
+        self.pushButton.clicked.connect(self.compute)
 
-# Tokenize the input data
-tokens = tokenize(data)
-print("Tokens:", tokens)
+    def compute(self):
+        self.data = self.textEdit.toPlainText()
+        self.textEdit_2.setEnabled(True)
+        data = self.data.replace('(', '').replace(')', '')
+        print("Code = ", data.strip())
+        tokens = tokenize(data)
+        parsed_result = parse(data)
+        if 'Parser error' in parsed_result:
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Information)
+            msg.setText(parsed_result)
+            msg.setWindowTitle("Error")
+            msg.setStandardButtons(QMessageBox.Ok)
+            msg.buttonClicked.connect(self.restart_app)  # Connect to the restart_app method
+            msg.exec_()
+            return
 
-parsed_result = parse(data)
-print("Parsed result:", parsed_result)
-parse_result(parsed_result)
+        print(parsed_result)
+        result, steps = evaluate(parsed_result)
+        output = "Steps : \n"
+        for _ in range(len(steps)):
+            output = output + steps[_] + '\n'
+        output = output + '\nResult : ' + result
+        self.textEdit.clear()
+        self.textEdit.setPlainText(output)
+        response = Analyze(output, data)
+        self.textEdit_2.setPlainText(response)
+
+    def restart_app(self):
+        # Close the current window
+        self.close()
+        # Reopen a new instance of the GUI
+        self.new_window = GUI()
+        self.new_window.show()
+
+
+app = QApplication([])
+window = GUI()
+app.exec_()

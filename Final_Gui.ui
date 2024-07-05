@@ -18,7 +18,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>code icon.png</normaloff>code icon.png</iconset>
+    <normaloff>../../../../../AppData/Local/Programs/Python/Python312/Lib/site-packages/QtDesigner/code icon.png</normaloff>../../../../../AppData/Local/Programs/Python/Python312/Lib/site-packages/QtDesigner/code icon.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_2">
@@ -31,9 +31,6 @@
        <string>Enter Lambda Calc Expression...</string>
       </property>
      </widget>
-    </item>
-    <item row="1" column="1">
-     <layout class="QVBoxLayout" name="verticalLayout_3"/>
     </item>
     <item row="2" column="0" colspan="3">
      <widget class="QPushButton" name="pushButton">
@@ -52,13 +49,22 @@
     </item>
     <item row="0" column="2">
      <widget class="QTextEdit" name="textEdit_2">
-      <property name="readOnly">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="undoRedoEnabled">
        <bool>true</bool>
       </property>
+      <property name="readOnly">
+       <bool>false</bool>
+      </property>
       <property name="placeholderText">
-       <string>Chat GPT Analysis &gt;</string>
+       <string>AI Analysis &gt;</string>
       </property>
      </widget>
+    </item>
+    <item row="1" column="1">
+     <layout class="QVBoxLayout" name="verticalLayout_3"/>
     </item>
    </layout>
   </widget>
