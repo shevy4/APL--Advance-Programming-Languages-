@@ -26,7 +26,8 @@ and you may also use compiler development tools such as LEX/YACC (generates C co
 ![GUI](https://github.com/shevy4/APL--Advance-Programming-Languages-/assets/61606455/073bd6af-1e35-4fe5-9972-9fe7147d317b)
 
 
-
+## AI Analysis :
+- Project Utilizes Google Gemeni For Lambda Expression Analysis.
 
 
 
