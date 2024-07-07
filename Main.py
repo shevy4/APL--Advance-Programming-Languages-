@@ -1,5 +1,3 @@
-import sys
-import time
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
 from PyQt5 import uic
 from Tokenize import tokenize
@@ -9,42 +7,61 @@ from AI_Analysis import Analyze
 
 
 class GUI(QMainWindow):
-
+    # Initialize the GUI
     def __init__(self):
         super(GUI, self).__init__()
         uic.loadUi('Final_Gui.ui', self)
         self.show()
         self.data = None
+        # Connect the compute method to the button click event
         self.pushButton.clicked.connect(self.compute)
 
+    # Get input from the text edit field
     def compute(self):
         self.data = self.textEdit.toPlainText()
         self.textEdit_2.setEnabled(True)
         data = self.data.replace('(', '').replace(')', '')
         print("Code = ", data.strip())
+
+        # Tokenize the input data
         tokens = tokenize(data)
+        print(tokens)
+
+        # Parse the tokenized data
         parsed_result = parse(data)
+        print(parsed_result)
+
         if 'Parser error' in parsed_result:
             msg = QMessageBox()
             msg.setIcon(QMessageBox.Information)
             msg.setText(parsed_result)
             msg.setWindowTitle("Error")
             msg.setStandardButtons(QMessageBox.Ok)
-            msg.buttonClicked.connect(self.restart_app)  # Connect to the restart_app method
+            # Connect to the restart_app method
+            msg.buttonClicked.connect(self.restart_app)
             msg.exec_()
             return
 
-        print(parsed_result)
+        # Evaluate the parsed result
         result, steps = evaluate(parsed_result)
+        print("Done")
+        print("result :", result)
+        print('steps :', steps)
+
+        # Prepare the output to display
         output = "Steps : \n"
+
         for _ in range(len(steps)):
             output = output + steps[_] + '\n'
-        output = output + '\nResult : ' + result
+        output = output + '\nResult : ' + str(result)
         self.textEdit.clear()
         self.textEdit.setPlainText(output)
+
+        # Analyze the output using AI
         response = Analyze(output, data)
         self.textEdit_2.setPlainText(response)
 
+    # Restart window
     def restart_app(self):
         # Close the current window
         self.close()
@@ -53,6 +70,7 @@ class GUI(QMainWindow):
         self.new_window.show()
 
 
+# Initialize and run the application
 app = QApplication([])
 window = GUI()
 app.exec_()

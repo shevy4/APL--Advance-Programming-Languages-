@@ -18,7 +18,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>../../../../../AppData/Local/Programs/Python/Python312/Lib/site-packages/QtDesigner/code icon.png</normaloff>../../../../../AppData/Local/Programs/Python/Python312/Lib/site-packages/QtDesigner/code icon.png</iconset>
+    <normaloff>code icon.png</normaloff>code icon.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_2">

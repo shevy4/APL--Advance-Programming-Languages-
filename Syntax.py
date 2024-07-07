@@ -1,9 +1,6 @@
-import time
-
 from ply import yacc
 from Tokenize import tokens
 
-variables = []
 error = None
 
 
@@ -42,8 +39,8 @@ def p_expression_constant(p):
 
 
 def p_expression_operator(p):
-    """expression : expression OPERATOR expression"""
-    p[0] = ('operator', p[2], p[1], p[3])
+    """expression : OPERATOR expression expression"""
+    p[0] = ('operator', p[1], p[2], p[3])
 
 
 def p_expression_body(p):
@@ -62,19 +59,21 @@ def p_expression_inputs(p):
         p[0] = ('body', p[1], p[2], p[3], p[4])
 
 
+# Handle parsing errors
 def p_error(p):
     global error
     if p:
-        #print(f"Syntax error at token {p.type}: '{p.value}'")
         error = "Syntax error at token" + str({p.type}) + ":" + str({p.value})
 
     else:
-        #print("Syntax error at EOF")
         error = "Syntax error at EOF"
 
+
+# Create the parser
 parser = yacc.yacc()
 
 
+# Parse the given code
 def parse(code):
     result = parser.parse(code)
     if result:

@@ -1,6 +1,6 @@
 import ply.lex as lex
 
-# tokens
+# Define tokens
 tokens = (
     'LAMBDA',  # The lambda symbol '#'
     'DOT',  # The dot '.'
