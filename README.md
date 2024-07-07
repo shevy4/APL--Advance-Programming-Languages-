@@ -30,8 +30,8 @@ and you may also use compiler development tools such as LEX/YACC (generates C co
 - Project Utilizes Google Gemeni For Lambda Expression Analysis.
 
 ## Versions :
-@1.0 - 1st Draft
-@1.2[Current] - Bug Fixes For Expressions Returning As 'None"
+1.0 - 1st Draft
+1.2[Current] - Bug Fixes For Expressions Returning As 'None"
 
 
 ## Authors
