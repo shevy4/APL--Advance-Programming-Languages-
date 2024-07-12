@@ -23,7 +23,7 @@ and you may also use compiler development tools such as LEX/YACC (generates C co
 ![md](https://github.com/shevy4/APL--Advance-Programming-Languages-/assets/61606455/9e0aeb3a-352d-4534-9dff-c228a357901e)
 ![syntax](https://github.com/shevy4/APL--Advance-Programming-Languages-/assets/61606455/9b2eb83d-d0df-4ca0-ab21-02e80b675110)
 ![Gui code](https://github.com/shevy4/APL--Advance-Programming-Languages-/assets/61606455/554b4091-f9f5-4159-831f-8546865aa1ac)
-![GUI](https://github.com/shevy4/APL--Advance-Programming-Languages-/assets/61606455/073bd6af-1e35-4fe5-9972-9fe7147d317b)
+![ap](https://github.com/user-attachments/assets/3e998332-bcf1-4621-b123-3d5a38524b73)
 ![ap](https://github.com/user-attachments/assets/2ad74bd4-48cc-4a16-87bc-f5e7bd4aa0a1)
 
 
@@ -32,9 +32,11 @@ and you may also use compiler development tools such as LEX/YACC (generates C co
 - Project Utilizes Google Gemeni For Lambda Expression Analysis.
 
 ## Versions :
-1.0 - 1st Draft 
+1.0 - Developed Syntax % Tokenization 
 
-1.2[Current] - Bug Fixes For Expressions Returning As 'None" 
+1.2 - Bug Fixes For Expressions Returning As 'None" 
+
+1.3[Current] - Rewrote Base Logic, implemented Arithmetic
 
 
 ## Authors
