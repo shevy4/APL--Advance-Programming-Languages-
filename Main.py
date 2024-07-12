@@ -25,11 +25,11 @@ class GUI(QMainWindow):
 
         # Tokenize the input data
         tokens = tokenize(data)
-        print(tokens)
+        print("Tokens :", tokens)
 
         # Parse the tokenized data
         parsed_result = parse(data)
-        print(parsed_result)
+        print("parsed result :", parsed_result)
 
         if 'Parser error' in parsed_result:
             msg = QMessageBox()
@@ -44,9 +44,7 @@ class GUI(QMainWindow):
 
         # Evaluate the parsed result
         result, steps = evaluate(parsed_result)
-        print("Done")
-        print("result :", result)
-        print('steps :', steps)
+        #print("Result : ", result)
 
         # Prepare the output to display
         output = "Steps : \n"

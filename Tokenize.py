@@ -17,7 +17,7 @@ t_DOT = r'\.'
 t_LPAREN = r'\('
 t_RPAREN = r'\)'
 t_CONSTANT = r'[0-9]+'
-t_OPERATOR = r'[\+\-\*\\]'
+t_OPERATOR = r'[\+\-\*\/]'
 
 
 # A regular expression rule with some action code to handle variables
