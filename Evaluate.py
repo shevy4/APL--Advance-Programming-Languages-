@@ -58,7 +58,6 @@ def evaluate(expression):
 
                         elif operator == '*':
                             if isinstance(left_operand, str) or isinstance(right_operand, str):
-                                print("PING")
                                 reduced = str(left_operand) + " " + str(operator) + " " + str(right_operand)
                             else:
                                 reduced = left_operand * right_operand
@@ -80,7 +79,6 @@ def evaluate(expression):
                         result = reduced
                         return reduced, steps
                     except IndexError:
-                        print("IndexError")
                         pass
 
                 elif expression[0] == 'lambda':
@@ -91,17 +89,16 @@ def evaluate(expression):
                     break
 
                 else:
-                    print("Work in progress")
                     try:
                         if body[3]:
-                            print("OK")
+                            print("...")
                     except IndexError:
                         try:
                             result = str(expression[0][1]) + " " + str(expression[1][1])
                             steps.append(str(expression) + " -> " + str(result))
                             return result, steps
                         except IndexError:
-                            print("Can't")
+                            pass
                         steps.append(str(expression) + " -> " + str(body))
                         reduced = body
                         return reduced, steps
@@ -126,7 +123,6 @@ def evaluate(expression):
     except TypeError:
         result = expression
         steps.append(str(expression) + " -> " + str(result))
-        print("TYPE ERROR")
         return result, steps
 
     return result, steps
@@ -190,7 +186,7 @@ def sub(input, body):
         h[5] = " "
         try:
             if h[6]:
-                print("More to eval")
+                pass
         except IndexError:
             pass
         h = clean_list(h)
@@ -209,7 +205,7 @@ def sub(input, body):
             new_body = flatten_list(new_body)
             for _ in range(len(new_body)):
                 if new_body[_] == "lambda":
-                    print("More to eval")
+                    pass
             for _ in range(0, len(new_body), 2):
                 new_body[_] = str(new_body[_]), str(new_body[_ + 1])
                 new_body[_ + 1] = " "
@@ -298,6 +294,7 @@ def convert_to_nested_tuple(data):
         return data
 
 
+# Flattens Nested Lists
 def flatten_list(nested_list):
     flattened_list = []
     for item in nested_list:

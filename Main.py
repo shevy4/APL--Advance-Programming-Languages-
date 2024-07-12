@@ -44,7 +44,6 @@ class GUI(QMainWindow):
 
         # Evaluate the parsed result
         result, steps = evaluate(parsed_result)
-        #print("Result : ", result)
 
         # Prepare the output to display
         output = "Steps : \n"
