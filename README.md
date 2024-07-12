@@ -24,6 +24,8 @@ and you may also use compiler development tools such as LEX/YACC (generates C co
 ![syntax](https://github.com/shevy4/APL--Advance-Programming-Languages-/assets/61606455/9b2eb83d-d0df-4ca0-ab21-02e80b675110)
 ![Gui code](https://github.com/shevy4/APL--Advance-Programming-Languages-/assets/61606455/554b4091-f9f5-4159-831f-8546865aa1ac)
 ![GUI](https://github.com/shevy4/APL--Advance-Programming-Languages-/assets/61606455/073bd6af-1e35-4fe5-9972-9fe7147d317b)
+![ap](https://github.com/user-attachments/assets/2ad74bd4-48cc-4a16-87bc-f5e7bd4aa0a1)
+
 
 
 ## AI Analysis :
