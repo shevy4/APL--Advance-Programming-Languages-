@@ -46,7 +46,7 @@ class GUI(QMainWindow):
         result, steps = evaluate(parsed_result)
 
         # Prepare the output to display
-        output = "Steps : \n"
+        output = "Input : " + data + "\nSteps : \n"
 
         for _ in range(len(steps)):
             output = output + steps[_] + '\n'
