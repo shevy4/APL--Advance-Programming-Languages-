@@ -1,4 +1,4 @@
-## Utech Advance Programming Languages
+## Utech Analysis Of Programming Languages
 ### Sumemer 2024
 
 # Instructions :
